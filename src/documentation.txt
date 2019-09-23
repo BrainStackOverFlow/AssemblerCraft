@@ -1,0 +1,38 @@
+documentation:
+
+the registers are in the size of 32 bits
+
+processor core:
+	registers:
+		res1:
+			also known as 'r0'.
+			will strore the results of instructions
+		res2:
+			also known as 'r1'.
+			will strore the secondary results of instructions
+		src1:
+			also known as 'r2'.
+			will strore the operand needed for instructions
+		src2
+			also known as 'r3'.
+			will strore the secondary operand needed for instructions
+		dr1
+		dr2
+		dr3
+		dr4:
+			they are the data registers, they are storing data also known as r4-7
+		sp:
+			the stack register, also known as 'r8'
+		bp:
+			the stack base register, also known as 'r9'
+		flags:
+			the flags register, also known as 'r10'
+			contain the flollowing flags:	
+		ip:
+			the instruction pointer register, also known as 'r11'
+			contain the pointer for the next instruction that will be executed
+
+instruction:
+	add:
+		src1 and src2 will contain the integer numbers that will be added.
+		res1 will contain least significant part of the 
