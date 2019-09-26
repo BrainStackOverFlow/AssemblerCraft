@@ -12,10 +12,10 @@
 //integer operations
 #define INSTRUCTION_ADD
 #define INSTRUCTION_SUB
-#define INSTRUCTION_MUL
-#define INSTRUCTION_DIV 
-#define INSTRUCTION_IMUL
-#define INSTRUCTION_IDIV
+#define INSTRUCTION_UMUL
+#define INSTRUCTION_UDIV 
+#define INSTRUCTION_SMUL
+#define INSTRUCTION_SDIV
 #define INSTRUCTION_NEG
 
 // float operations

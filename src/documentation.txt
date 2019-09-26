@@ -23,6 +23,7 @@ processor core:
 			they are the data registers, they are storing data also known as r4-7
 		sp:
 			the stack register, also known as 'r8'
+			points to the top of the stack
 		bp:
 			the stack base register, also known as 'r9'
 		flags:
@@ -35,4 +36,91 @@ processor core:
 instruction:
 	add:
 		src1 and src2 will contain the integer numbers that will be added.
-		res1 will contain least significant part of the 
+		res1 will contain the result
+	sub:
+		src1 and src2 will contain the integer numbers that will be substracted.
+		res1 will contain the result
+	umul
+		Unsigned integer multiply src1 with src2
+		the least signficant result (first 32 bits) is in res1.
+		the most signficant result (last 32 bits) is in res2.
+	udiv:
+		Unsigned integer division. devides src1 with src2
+		the result is in res1
+		the reminder is in re2
+	smul:
+		signed integer division. multiply src1 with src2
+		the least signficant result (first 32 bits) is in res1.
+		the most signficant result (last 32 bits) is in res2.
+	sdiv:
+		signed integer division. devides src1 with src2
+		the result is in res1
+		the reminder is in re2
+	neg:
+		make the number negative of himself
+		if integer was n its now -n
+		src1 is intger to make negative
+		res1 has the result number
+		
+	fadd:
+		src1 and src2 will contain the float numbers that will be added.
+		res1 will contain the result
+	fsub:
+		src1 and src2 will contain the float numbers that will be substracted.
+		res1 will contain the result
+	fmul:
+		float multiplication:
+		src1 and src2 will have the values that will be multiplied
+		res1 have the result
+	fdiv:
+		float division:
+		src1 and src2 will have the values that will be divised
+		res1 have the result
+	fpow:
+		power
+	frot:
+	
+	itf:
+		convert integer to float:
+		src1 will contain the integer
+		res1 will contain the float
+	fti:
+		convert float to integer:
+		src1 will contain the float
+		res1 will contain the integer
+	
+	not:
+	or:
+	and:
+	xor:
+	
+	loadmb:
+		load to memory byte
+		src1 is the pointer to memory
+		src2 is the value that would be uploaded
+	loadmd:
+		load to memory double byte (2 bytes, 16 bits)
+		src1 is the pointer to memory
+		src2 is the value that would be uploaded
+	loadmq:
+		load to memory double byte (4 bytes, 32 bits)
+		src1 is the pointer to memory
+		src2 is the value that would be uploaded
+	loadr:
+		load from memory to register
+		src1 pointer to memory
+		res1 have 4 bytes value from that pointer
+		if u want only part of the values u can `and` the with the result
+	mov:
+		move values from registers to another registers
+		in memory, after the opcode comes another 2 bytes that are related to this command, these are the operand
+		the first operand states the destination register, and the second states the source register
+	set:
+		sets registers with a constant operand
+		have extra 5 bytes after it.
+		the first byte states what register will be set
+		and the other 2-5 bytes (4) states the value that the register will be setted to.
+	push:
+		push src1 register to the stack
+	pop:
+		pop to res1 from the stack
