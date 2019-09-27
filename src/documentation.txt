@@ -77,7 +77,7 @@ instruction:
 		src1 and src2 will have the values that will be divised
 		res1 have the result
 	fpow:
-		power
+		does Exponentiation. res1 = src1 ^ src2 (the base is src1 and the exponent is src2)
 	frot:
 	
 	itf:
@@ -90,9 +90,17 @@ instruction:
 		res1 will contain the integer
 	
 	not:
+		does a 'not' binary operation on the src1 register
+		result in res1
 	or:
+		does a 'or' binary operation on the src1, src2 registers
+		result on res1
 	and:
+		does a 'and' binary operation on the src1, src2 registers
+		result on res1
 	xor:
+		does a 'xor' binary operation on the src1, src2 registers
+		result on res1
 	
 	loadmb:
 		load to memory byte
@@ -120,7 +128,37 @@ instruction:
 		have extra 5 bytes after it.
 		the first byte states what register will be set
 		and the other 2-5 bytes (4) states the value that the register will be setted to.
+	swap:
+		swap registers values
+		have 2 extra bytes that determines the swapped registers
+	
 	push:
-		push src1 register to the stack
+		pushes a register to the stack
+		the register is determined by the next byte
 	pop:
-		pop to res1 from the stack
+		pop a register from the stack
+		the register is determined by the next byte
+		
+	save:
+		pushes all the registers to the stack to save them
+	rest:
+		pop all the registers from the stack to restore them
+	
+	jmp:
+		
+	call:
+		pushes the ip regsiter to the stack, and then does the jmp instruction
+	ret:
+		pop to the ip register from the stack
+	int:
+		interrupt
+	
+	in:
+		src1 is the input port
+		res1 will have the value from the port
+	out:
+		src1 is the output port
+		src2 is the value
+		
+	cpuid:
+		
