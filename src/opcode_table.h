@@ -1,7 +1,7 @@
 #ifndef opcode_table_h
 #define opcode_table_h
 
-//some documention:
+
 
 //instructions:
 #define instr(x) INSTRUCTION_ ## x
@@ -64,6 +64,8 @@
 
 // set instruction. set the res1 register
 #define INSTRUCTION_SET
+
+#define INSTRUCTION_SWAP
 
 //stack manipulation
 #define INSTRUCTION_PUSH 
