@@ -34,73 +34,253 @@ processor core:
 			contain the pointer for the next instruction that will be executed
 
 instruction:
+	nop:
+		opcode: none
+		modified: none
+		parameters: none
+		additional operands (in instruction memory): none
+		notes: none
 	add:
-		src1 and src2 will contain the integer numbers that will be added.
-		res1 will contain the result
+		opcode:
+		modified: 
+			registers: res1 
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does addition on the src1 and src2 registers, store the result in res1
 	sub:
-		src1 and src2 will contain the integer numbers that will be substracted.
-		res1 will contain the result
+		opcode:
+		modified: 
+			registers: res1 
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does substraction on the src1 and src2 registers, store the result in res1
 	umul
-		Unsigned integer multiply src1 with src2
-		the least signficant result (first 32 bits) is in res1.
-		the most signficant result (last 32 bits) is in res2.
+		opcode:
+		modified: 
+			registers: res1, res2
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does unsigned integer multiplication on the src1 and src2 registers
+			the instructions store the result lower-order bits (bits 0-31) in res1, and the result high-order (bits 31-63) bits in res2
 	udiv:
-		Unsigned integer division. devides src1 with src2
-		the result is in res1
-		the reminder is in re2
+		opcode:
+		modified: 
+			registers: res1, res2
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does unsigned integer division on the src1 and src2 registers
+			the instructions store the result  in res1, and the reminder in res2
 	smul:
-		signed integer division. multiply src1 with src2
-		the least signficant result (first 32 bits) is in res1.
-		the most signficant result (last 32 bits) is in res2.
+		opcode:
+		modified: 
+			registers: res1, res2
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does signed integer multiplication on the src1 and src2 registers
+			the instructions store the result lower-order bits (bits 0-31) in res1, and the result high-order (bits 31-63) bits in res2
 	sdiv:
-		signed integer division. devides src1 with src2
-		the result is in res1
-		the reminder is in re2
+		opcode:
+		modified: 
+			registers: res1, res2
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does signed integer division on the src1 and src2 registers
+			the instructions store the result  in res1, and the reminder in res2
 	neg:
-		make the number negative of himself
-		if integer was n its now -n
-		src1 is intger to make negative
-		res1 has the result number
+		opcode:
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes:
+			make the number negative to what he was before in the two's complement system.
 		
 	fadd:
-		src1 and src2 will contain the float numbers that will be added.
-		res1 will contain the result
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point addition
 	fsub:
-		src1 and src2 will contain the float numbers that will be substracted.
-		res1 will contain the result
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point substraction
 	fmul:
-		float multiplication:
-		src1 and src2 will have the values that will be multiplied
-		res1 have the result
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point multiplication
 	fdiv:
-		float division:
-		src1 and src2 will have the values that will be divised
-		res1 have the result
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point division
 	fpow:
-		does Exponentiation. res1 = src1 ^ src2 (the base is src1 and the exponent is src2)
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point exponentiation.
+			src1 is the base, and src2 is the exponent
 	frot:
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point root.
+			src1 is the radicand, and src2 is the degree
+	fabs:
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point absolute value
+	fsin:
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes: 
+			calculate the sine() of the src1 register. the result is floating point
+	fcos:
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes: 
+			calculate the cosine() of the src1 register. the result is floating point
+	flog:
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes: 
+			floating point logarithm.
+			src1 is the anti-logarithm, and src2 is base
 	
 	itf:
-		convert integer to float:
-		src1 will contain the integer
-		res1 will contain the float
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes: 
+			int to float
+			
 	fti:
-		convert float to integer:
-		src1 will contain the float
-		res1 will contain the integer
+		opcode: 
+		modified: 
+			registers: res1
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes: 
+			float to int
 	
 	not:
-		does a 'not' binary operation on the src1 register
-		result in res1
+		opcode:
+		modified: 
+			registers: res1 
+		parameters:
+			registers: src1
+		additional operands (in instruction memory):
+			none
+		notes:
+			does not on the src1 register, store the result in res1
 	or:
-		does a 'or' binary operation on the src1, src2 registers
-		result on res1
+		opcode:
+		modified: 
+			registers: res1 
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does or on the src1 and src2 registers, store the result in res1
 	and:
-		does a 'and' binary operation on the src1, src2 registers
-		result on res1
+		opcode:
+		modified: 
+			registers: res1 
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does and on the src1 and src2 registers, store the result in res1
 	xor:
-		does a 'xor' binary operation on the src1, src2 registers
-		result on res1
+		opcode:
+		modified: 
+			registers: res1 
+		parameters:
+			registers: src1, src2
+		additional operands (in instruction memory):
+			none
+		notes:
+			does xor on the src1 and src2 registers, store the result in res1
 	
 	loadmb:
 		load to memory byte

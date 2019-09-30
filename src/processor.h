@@ -2,6 +2,7 @@
 #define processor_h
 
 #include <stdint.h>
+#include <jni.h>
 
 // a register in the processor is in the size of 32bits
 typedef uint32_t reg_t; 
