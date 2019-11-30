@@ -1,5 +1,5 @@
 #ifndef processor_h
-#define processor_h
+#define processor_h 1
 
 #include <stdint.h>
 #include <jni.h>
@@ -41,6 +41,5 @@ typedef union core_t {
 	
 	reg_t regs[sizeof(reg_t) * 12];
 } core;
-
 
 #endif

@@ -1,5 +1,10 @@
 documentation:
 
+byte = 1 byte
+double byte = 2 bytes
+quad byte = 4 bytes
+
+the size of an instruction is 16 bits
 the registers are in the size of 32 bits
 
 processor core:
@@ -28,290 +33,282 @@ processor core:
 			the stack base register, also known as 'r9'
 		flags:
 			the flags register, also known as 'r10'
-			contain the flollowing flags:	
+			contain the flollowing flags:
+				FF : false Flag
+					its value is always 0
+				TF : True Flag 
+					its value is always 1
+				ZF : Zero Flag
+				SF : Sign Flag
+				CF : Carry Flag
+				OF : Overflow Flag
+				CB : Control Bit
+					detemines if a some instruction will appen or notjmp/
 		ip:
 			the instruction pointer register, also known as 'r11'
 			contain the pointer for the next instruction that will be executed
+		
 
 instruction:
 	nop:
-		opcode: none
-		modified: none
+		opcode: 
 		parameters: none
-		additional operands (in instruction memory): none
-		notes: none
+		modifies: none
+		notes: the instruction does nothing.
 	add:
 		opcode:
-		modified: 
-			registers: res1 
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1 
 		notes:
-			does addition on the src1 and src2 registers, store the result in res1
+			the instruction does an integer addition on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 + src2
 	sub:
 		opcode:
-		modified: 
-			registers: res1 
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1 
 		notes:
-			does substraction on the src1 and src2 registers, store the result in res1
+			the instruction does an integer substraction on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 - src2
 	umul
 		opcode:
-		modified: 
-			registers: res1, res2
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1 
 		notes:
-			does unsigned integer multiplication on the src1 and src2 registers
-			the instructions store the result lower-order bits (bits 0-31) in res1, and the result high-order (bits 31-63) bits in res2
+			the instruction does an unsigned integer multiplication on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 * src2
 	udiv:
 		opcode:
-		modified: 
-			registers: res1, res2
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1 
 		notes:
-			does unsigned integer division on the src1 and src2 registers
-			the instructions store the result  in res1, and the reminder in res2
+			the instruction does an unsigned integer division on the src1 and src2 registers, and store the result in res1 and the reminder in res2.
+			res1 = src1 / src2
+			res2 = src1 - src2 * res1
 	smul:
 		opcode:
-		modified: 
-			registers: res1, res2
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1 
 		notes:
-			does signed integer multiplication on the src1 and src2 registers
-			the instructions store the result lower-order bits (bits 0-31) in res1, and the result high-order (bits 31-63) bits in res2
+			the instruction does a signed integer multiplication on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 * src2
 	sdiv:
 		opcode:
-		modified: 
-			registers: res1, res2
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1 
 		notes:
-			does signed integer division on the src1 and src2 registers
-			the instructions store the result  in res1, and the reminder in res2
+			the instruction does a signed integer division on the src1 and src2 registers, and store the result in res1 and the reminder in res2.
+			res1 = src1 / src2
+			res2 = src1 - src2 * res1
 	neg:
 		opcode:
-		modified: 
-			registers: res1
 		parameters:
-			registers: src1
-		additional operands (in instruction memory):
-			none
+			registers: byte r
+		modifies: 
+			registers: r
 		notes:
-			make the number negative to what he was before in the two's complement system.
-		
+			make register r value negative in the two's complement system.	
+			r = -r
 	fadd:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point addition
+		modifies: 
+			registers: res1
+		notes:
+			the instruction does an floating point addition on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 + src2
 	fsub:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point substraction
+		modifies: 
+			registers: res1
+		notes:
+			the instruction does an floating point substraction on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 - src2
 	fmul:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point multiplication
+		modifies: 
+			registers: res1 
+		notes:
+			the instruction does a floating point multiplication on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 * src2
 	fdiv:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point division
+		modifies: 
+			registers: res1 
+		notes:
+			the instruction does a floating point division on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 / src2
 	fpow:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point exponentiation.
+		modifies: 
+			registers: res1 
+		notes:
+			the instruction does a floating point exponentiation on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 ^ src2	(the "^" doesnt represent xor)	
 			src1 is the base, and src2 is the exponent
-	frot:
-		opcode: 
-		modified: 
-			registers: res1
-		parameters:
-			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point root.
-			src1 is the radicand, and src2 is the degree
 	fabs:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
-			registers: src1
-		additional operands (in instruction memory):
-			none
-		notes: 
-			floating point absolute value
+			registers: byte r
+		modifies: 
+			registers: r
+		notes:
+			the instruction does a floating point absolute value on register r
 	fsin:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1, res2
 		notes: 
-			calculate the sine() of the src1 register. the result is floating point
-	fcos:
-		opcode: 
-		modified: 
-			registers: res1
-		parameters:
-			registers: src1
-		additional operands (in instruction memory):
-			none
-		notes: 
-			calculate the cosine() of the src1 register. the result is floating point
+			the instruction does a floating point sine and cosine on the src1 registers, and store the result in res1 and res2.
+			res1 = sine(src1)
+			res2 = cosine(src1)
 	flog:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
+		modifies: 
+			registers: res1
 		notes: 
-			floating point logarithm.
+			the instruction does a floating point logarithm on the src1 and src2 registers, and store the result in res1.
+			res1 = logsrc2(src1)
 			src1 is the anti-logarithm, and src2 is base
-	
 	itf:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
-			registers: src1
-		additional operands (in instruction memory):
-			none
-		notes: 
-			int to float
-			
+			registers: byte r
+		modifies: 
+			registers: r
+		notes:
+			the instruction convert register r value from int to float.				
 	fti:
-		opcode: 
-		modified: 
-			registers: res1
+		opcode:
 		parameters:
-			registers: src1
-		additional operands (in instruction memory):
-			none
-		notes: 
-			float to int
-	
+			registers: byte r
+		modifies: 
+			registers: r
+		notes:
+			the instruction convert register r value from float to int
 	not:
 		opcode:
-		modified: 
-			registers: res1 
 		parameters:
-			registers: src1
-		additional operands (in instruction memory):
-			none
+			registers: byte r
+		modifies: 
+			registers: r
 		notes:
-			does not on the src1 register, store the result in res1
+			the instruction flips all register bits.
 	or:
 		opcode:
-		modified: 
-			registers: res1 
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes:
-			does or on the src1 and src2 registers, store the result in res1
+		modifies: 
+			registers: res1
+		notes: 
+			the instruction does an bitwise or operation on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 | src2
 	and:
 		opcode:
-		modified: 
-			registers: res1 
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes:
-			does and on the src1 and src2 registers, store the result in res1
+		modifies: 
+			registers: res1
+		notes: 
+			the instruction does an bitwise and operation on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 & src2
 	xor:
 		opcode:
-		modified: 
-			registers: res1 
 		parameters:
 			registers: src1, src2
-		additional operands (in instruction memory):
-			none
-		notes:
-			does xor on the src1 and src2 registers, store the result in res1
-	
-	loadmb:
-		load to memory byte
-		src1 is the pointer to memory
-		src2 is the value that would be uploaded
-	loadmd:
-		load to memory double byte (2 bytes, 16 bits)
-		src1 is the pointer to memory
-		src2 is the value that would be uploaded
-	loadmq:
-		load to memory double byte (4 bytes, 32 bits)
-		src1 is the pointer to memory
-		src2 is the value that would be uploaded
+		modifies: 
+			registers: res1
+		notes: 
+			the instruction does an bitwise xor operation on the src1 and src2 registers, and store the result in res1.
+			res1 = src1 ^ src2
+	memb:
+		opcode:
+		parameters:
+			registers: byte a, byte b
+		modifies: 
+			registers: [a]
+		notes: 
+			MEMory load Byte 
+			src1 is the pointer to memory
+			src2 is the value that would be loaded
+			[a] = (uint8_t)b
+	memd:
+		opcode:
+		parameters:
+			registers: byte a, byte b
+		modifies: 
+			registers: [a]
+		notes: 
+			MEMory load Double byte 	
+			src1 is the pointer to memory
+			src2 is the value that would be loaded
+			[a] = (uint16_t)b
+	memq:
+		opcode:
+		parameters:
+			registers: byte a, byte b
+		modifies: 
+			registers: [a]
+		notes: 
+			MEMory load Quad byte 	
+			src1 is the pointer to memory
+			src2 is the value that would be loaded
+			[a] = (uint32_t)b
 	loadr:
 		load from memory to register
 		src1 pointer to memory
 		res1 have 4 bytes value from that pointer
 		if u want only part of the values u can `and` the with the result
 	mov:
-		move values from registers to another registers
-		in memory, after the opcode comes another 2 bytes that are related to this command, these are the operand
-		the first operand states the destination register, and the second states the source register
+		opcode:
+		parameters:
+			registers: byte a, byte b
+		modifies: 
+			registers: a
+		notes:
+			the instruction MOVe the value of register b to register a
+			reg a = reg b
 	set:
-		sets registers with a constant operand
-		have extra 5 bytes after it.
-		the first byte states what register will be set
-		and the other 2-5 bytes (4) states the value that the register will be setted to.
+		opcode:
+		parameters:
+			registers: byte r, quad byte val
+		modifies: 
+			registers: r
+		notes:
+			the instruction SETs register r with the constant operand val
+			reg r = val
 	swap:
-		swap registers values
-		have 2 extra bytes that determines the swapped registers
-	
+		opcode:
+		parameters:
+			registers: byte a, byte b
+		modifies: 
+			registers: a, b
+		notes:
+			the instruction SWAP the values of registers a and b
 	push:
 		pushes a register to the stack
 		the register is determined by the next byte
