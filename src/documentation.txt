@@ -43,7 +43,8 @@ processor core:
 				CF : Carry Flag
 				OF : Overflow Flag
 				CB : Control Bit
-					detemines if a some instruction will appen or notjmp/
+					determine the control flow of the program, if disabled the next instruction will not execute:
+						jmpa, jmpr, jmp
 		ip:
 			the instruction pointer register, also known as 'r11'
 			contain the pointer for the next instruction that will be executed
@@ -218,6 +219,7 @@ instruction:
 			registers: r
 		notes:
 			the instruction flips all register bits.
+			r = ~r
 	or:
 		opcode:
 		parameters:
@@ -250,7 +252,7 @@ instruction:
 		parameters:
 			registers: byte a, byte b
 		modifies: 
-			registers: [a]
+			memory: [a]
 		notes: 
 			MEMory load Byte 
 			src1 is the pointer to memory
@@ -261,7 +263,7 @@ instruction:
 		parameters:
 			registers: byte a, byte b
 		modifies: 
-			registers: [a]
+			memory: [a]
 		notes: 
 			MEMory load Double byte 	
 			src1 is the pointer to memory
@@ -272,17 +274,20 @@ instruction:
 		parameters:
 			registers: byte a, byte b
 		modifies: 
-			registers: [a]
+			memory: [a]
 		notes: 
 			MEMory load Quad byte 	
 			src1 is the pointer to memory
 			src2 is the value that would be loaded
 			[a] = (uint32_t)b
-	loadr:
-		load from memory to register
-		src1 pointer to memory
-		res1 have 4 bytes value from that pointer
-		if u want only part of the values u can `and` the with the result
+	load:
+		opcode:
+		parameters:
+			registers: byte a, byte b
+		modifies: 
+			registers: b
+		notes: 
+		b = [a]
 	mov:
 		opcode:
 		parameters:
@@ -310,23 +315,87 @@ instruction:
 		notes:
 			the instruction SWAP the values of registers a and b
 	push:
-		pushes a register to the stack
-		the register is determined by the next byte
+		parameters:
+			registers: r
+		modifies: 
+			registers: sp
+			memory: [sp]
+		notes:
+			the instruction pushes register r to the stack
+			sp = sp - 4
+			[sp] = r
 	pop:
-		pop a register from the stack
-		the register is determined by the next byte
+		parameters:
+			registers: r
+		modifies: 
+			registers: sp, r
+		notes:
+			the instruction pop to register r from the stack
+			r = [sp]
+			sp = sp + 4
 		
 	save:
 		pushes all the registers to the stack to save them
 	rest:
 		pop all the registers from the stack to restore them
-	
+	jmpa:
+		parameters:
+			memory: quad byte x
+		modifies: 
+			registers: ip
+		notes:
+			the instruction does an absoulte jump, its sets the value of ip register to x.
+			ip = x
+	jmpr:
+		parameters:
+			memory: quad byte x
+		modifies: 
+			registers: ip
+		notes:
+			the instruction does a relative jump, its adds the value fo x to the ip register.
+			ip = ip + x
 	jmp:
-		
+		parameters:
+			memory: byte r
+		modifies: 
+			registers: ip
+		notes:
+			the instruction does an absolute jump, its sets the value of ip register to the value of the r regsiter.
+			ip = reg r
 	call:
-		pushes the ip regsiter to the stack, and then does the jmp instruction
+		parameters:
+			memory: quad byte x
+		modifies: 
+			memory [sp - 4]
+			registers: sp, ip
+		notes:
+			the instruction push the ip register to the stack and then change the ip register value to x
+			its the same like doing: (if assuming the CB is true)
+				push ip
+				jmpa x
+	calr:
+		call:
+		parameters:
+			memory: byte r
+		modifies: 
+			memory [sp - 4]
+			registers: sp, ip
+		notes:
+			the instruction push the ip register to the stack and then change the ip register value to x
+			its the same like doing: if assuming the CB is true)
+				push ip
+				jmp r
 	ret:
-		pop to the ip register from the stack
+		call:
+		parameters:
+			memory: byte x, [sp]
+		modifies: 
+			registers: ip, sp
+		notes:
+			the instruction pop to the ip register from the stack, and then releases x bytes from the stack.
+			same as doing:
+				pop ip
+				sp = sp + x
 	int:
 		interrupt
 	
