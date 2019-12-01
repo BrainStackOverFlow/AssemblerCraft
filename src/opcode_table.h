@@ -1,99 +1,119 @@
 #ifndef opcode_table_h
-#define opcode_table_h
+#define opcode_table_h 1
+
+
+// registers:
+
+// res1 and res2 : registers 0-1
+#define AC_REGISTER_R0 0
+#define AC_REGISTER_RES1 AC_REGISTER_R0
+
+#define AC_REGISTER_R1 1
+#define AC_REGISTER_RES2 AC_REGISTER_R1
+
+// src1 and src2 : registers 2-3
+#define AC_REGISTER_R2 2
+#define	AC_REGISTER_SRC1 AC_REGISTER_R2
+
+#define AC_REGISTER_R3 3
+#define	AC_REGISTER_SRC2 AC_REGISTER_R3
+
+// data registers 1-4 : registers 4-7
+
+#define AC_REGISTER_R4 4
+#define AC_REGISTER_R5 5
+#define AC_REGISTER_R6 6
+#define AC_REGISTER_R7 7
+
+#define AC_REGISTER_DR1 AC_REGISTER_R4 
+#define AC_REGISTER_DR2 AC_REGISTER_R5
+#define AC_REGISTER_DR3 AC_REGISTER_R6
+#define AC_REGISTER_DR4 AC_REGISTER_R7
+
+// sp and bp : registers 8-9
+
+#define AC_REGISTER_R8 8
+#define AC_REGISTER_SP AC_REGISTER_R8
+
+#define AC_REGISTER_R9 9
+#define AC_REGISTER_BP AC_REGISTER_R9
+
+// flags and ip : registers 10-11
+
+#define AC_REGISTER_R10 10
+#define AC_REGISTER_FLAGS AC_REGISTER_R10
+
+#define AC_REGISTER_R11 11
+#define AC_REGISTER_IP AC_REGISTER_R11
 
 
 
-//instructions:
-#define instr(x) INSTRUCTION_ ## x
+// instructions:
 
-//no op
-#define INSTRUCTION_NOP 0x00
+#define AC_INSTRUCTION_NOP 0x0000
 
-//integer operations
-#define INSTRUCTION_ADD 0x01
-#define INSTRUCTION_SUB 0x02
-#define INSTRUCTION_UMUL 0x03
-#define INSTRUCTION_UDIV 0x04
-#define INSTRUCTION_SMUL 0x05
-#define INSTRUCTION_SDIV 0x06
-#define INSTRUCTION_NEG 0x07
+// integer operations:
 
-// float operations
-#define INSTRUCTION_FADD 0x08
-#define INSTRUCTION_FSUB 0x09
-#define INSTRUCTION_FMUL 0x0a
-#define INSTRUCTION_FDIV 0x0b
-#define INSTRUCTION_FPOW 0x0c
-#define INSTRUCTION_FROT 0x0d
-#define INSTRUCTION_FABS 0x26
-#define INSTRUCTION_FSIN 0x27
-#define INSTRUCTION_FCOS 0x28
-#define INSTRUCTION_FLOG 0x29
+#define AC_INSTRUCTION_ADD 0x0010
+#define AC_INSTRUCTION_SUB 0x0011
 
-//convertion operations
-// convert integer to float
-#define INSTRUCTION_ITF 0x0e
-//convert float to int
-#define INSTRUCTION_FTI 0x0f
+#define AC_INSTRUCTION_UMUL 0x0012
+#define AC_INSTRUCTION_UDIV 0x0013
 
+#define AC_INSTRUCTION_SMUL 0x0014
+#define AC_INSTRUCTION_SDIV 0x0015
 
-//binary operation
-#define INSTRUCTION_NOT 0x10
-#define INSTRUCTION_OR 0x11
-#define INSTRUCTION_AND 0x12
-#define INSTRUCTION_XOR 0x13
+#define AC_INSTRUCTION_NEG 0x0016
 
-//data moving
+// floating point operations:
 
-// load = moving values between memory to registers
-// src1 is the pointer
-// src2 is the value
-// res1 will hold result
-// load to memory byte
-#define INSTRUCTION_LOADMB 0x14
-// load to memory double byte
-#define INSTRUCTION_LOADMD 0x15
-// load to memory quad byte
-#define INSTRUCTION_LOADMQ 0x16
+#define AC_INSTRUCTION_FADD 0x0020
+#define AC_INSTRUCTION_FSUB 0x0021
 
-// load from memory
-#define INSTRUCTION_LOADR 0x17
-// src1 pointer to memory
-// res1 will hold result
-// if u want specific size of data you can use the and opreation on the answer 
+#define AC_INSTRUCTION_FMUL 0x0022
+#define AC_INSTRUCTION_FDIV 0x0023
 
-// mov move values between registers
-#define INSTRUCTION_MOV 0x18
-// uses 2 bytes to determine what registers to move between (one byte for each register)
+#define AC_INSTRUCTION_FABS 0x0024
 
-// set instruction. set the res1 register
-#define INSTRUCTION_SET 0x19
+#define AC_INSTRUCTION_FSIN 0x0025
+#define AC_INSTRUCTION_FLOG 0x0026
 
-#define INSTRUCTION_SWAP 0x1a
+// integer to and from floating point conversion
 
-//stack manipulation
-#define INSTRUCTION_PUSH 0x1b
-#define INSTRUCTION_POP 0x1c
+#define AC_INSTRUCTION_ITF 0x0027
+#define AC_INSTRUCTION_FTI 0x0028
 
-//pushes all the registers to the stack to save them
-#define INSTRUCTION_SAVE 0x1d
+// bitwise operations
 
-//pop all the registers from the stack to restore them
-#define INSTRUCTION_REST 0x1e
+#define AC_INSTRUCTION_NOT 0x0030
+#define AC_INSTRUCTION_OR 0x0031
+#define AC_INSTRUCTION_AND 0x0032
+#define AC_INSTRUCTION_XOR 0x0033
 
+// registers and memory operations
 
-//control flow
-#define INSTRUCTION_JMP 0x1f
-#define INSTRUCTION_CALL 0x20
-#define INSTRUCTION_RET 0x21
-#define INSTRUCTION_INT 0x22
+#define AC_INSTRUCTION_MEMB 0x0040
+#define AC_INSTRUCTION_MEMD 0x0041
+#define AC_INSTRUCTION_MEMQ 0x0042
 
-//io operations
-#define INSTRUCTION_IN 0x23
-#define INSTRUCTION_OUT 0x24
+#define AC_INSTRUCTION_LOAD 0x0043
 
+#define AC_INSTRUCTION_MOV 0x0044
+#define AC_INSTRUCTION_SET 0x0045
+#define AC_INSTRUCTION_SWAP 0x0046
 
-//misc
-#define CPUID 0x25
+#define AC_INSTRUCTION_PUSH 0x0047
+#define AC_INSTRUCTION_POP 0x0048
+
+// control flow
+
+#define AC_INSTRUCTION_JMPA 0x0050
+#define AC_INSTRUCTION_JMPR 0x0051
+#define AC_INSTRUCTION_JMP 0x0052
+
+#define AC_INSTRUCTION_CALL 0x00053
+#define AC_INSTRUCTION_CALR 0x0054
+
+#define AC_INSTRUCTION_RET 0x0055
 
 #endif
