@@ -1,119 +1,78 @@
 #ifndef opcode_table_h
 #define opcode_table_h 1
 
+enum ac_register
+{
+	ac_register_r0 = 0,
+	ac_register_r1,
+	ac_register_r2,
+	ac_register_r3,
+	ac_register_r4,
+	ac_register_r5,
+	ac_register_r6,
+	ac_register_r7,
+	ac_register_r8,
+	ac_register_r9,
+	ac_register_r10,
+	ac_register_r11,
+	
+	ac_register_sp = ac_register_r8,
+	ac_register_bp = ac_register_r9,
+	ac_register_flags = ac_register_r10,
+	ac_register_ip = ac_register_r11,
+	
+	ac_register_r255 = 255,
+	ac_register_nullreg = ac_register_r255
+}
 
-// registers:
-
-// res1 and res2 : registers 0-1
-#define AC_REGISTER_R0 0
-#define AC_REGISTER_RES1 AC_REGISTER_R0
-
-#define AC_REGISTER_R1 1
-#define AC_REGISTER_RES2 AC_REGISTER_R1
-
-// src1 and src2 : registers 2-3
-#define AC_REGISTER_R2 2
-#define	AC_REGISTER_SRC1 AC_REGISTER_R2
-
-#define AC_REGISTER_R3 3
-#define	AC_REGISTER_SRC2 AC_REGISTER_R3
-
-// data registers 1-4 : registers 4-7
-
-#define AC_REGISTER_R4 4
-#define AC_REGISTER_R5 5
-#define AC_REGISTER_R6 6
-#define AC_REGISTER_R7 7
-
-#define AC_REGISTER_DR1 AC_REGISTER_R4 
-#define AC_REGISTER_DR2 AC_REGISTER_R5
-#define AC_REGISTER_DR3 AC_REGISTER_R6
-#define AC_REGISTER_DR4 AC_REGISTER_R7
-
-// sp and bp : registers 8-9
-
-#define AC_REGISTER_R8 8
-#define AC_REGISTER_SP AC_REGISTER_R8
-
-#define AC_REGISTER_R9 9
-#define AC_REGISTER_BP AC_REGISTER_R9
-
-// flags and ip : registers 10-11
-
-#define AC_REGISTER_R10 10
-#define AC_REGISTER_FLAGS AC_REGISTER_R10
-
-#define AC_REGISTER_R11 11
-#define AC_REGISTER_IP AC_REGISTER_R11
-
-
-
-// instructions:
-
-#define AC_INSTRUCTION_NOP 0x0000
-
-// integer operations:
-
-#define AC_INSTRUCTION_ADD 0x0010
-#define AC_INSTRUCTION_SUB 0x0011
-
-#define AC_INSTRUCTION_UMUL 0x0012
-#define AC_INSTRUCTION_UDIV 0x0013
-
-#define AC_INSTRUCTION_SMUL 0x0014
-#define AC_INSTRUCTION_SDIV 0x0015
-
-#define AC_INSTRUCTION_NEG 0x0016
-
-// floating point operations:
-
-#define AC_INSTRUCTION_FADD 0x0020
-#define AC_INSTRUCTION_FSUB 0x0021
-
-#define AC_INSTRUCTION_FMUL 0x0022
-#define AC_INSTRUCTION_FDIV 0x0023
-
-#define AC_INSTRUCTION_FABS 0x0024
-
-#define AC_INSTRUCTION_FSIN 0x0025
-#define AC_INSTRUCTION_FLOG 0x0026
-
-// integer to and from floating point conversion
-
-#define AC_INSTRUCTION_ITF 0x0027
-#define AC_INSTRUCTION_FTI 0x0028
-
-// bitwise operations
-
-#define AC_INSTRUCTION_NOT 0x0030
-#define AC_INSTRUCTION_OR 0x0031
-#define AC_INSTRUCTION_AND 0x0032
-#define AC_INSTRUCTION_XOR 0x0033
-
-// registers and memory operations
-
-#define AC_INSTRUCTION_MEMB 0x0040
-#define AC_INSTRUCTION_MEMD 0x0041
-#define AC_INSTRUCTION_MEMQ 0x0042
-
-#define AC_INSTRUCTION_LOAD 0x0043
-
-#define AC_INSTRUCTION_MOV 0x0044
-#define AC_INSTRUCTION_SET 0x0045
-#define AC_INSTRUCTION_SWAP 0x0046
-
-#define AC_INSTRUCTION_PUSH 0x0047
-#define AC_INSTRUCTION_POP 0x0048
-
-// control flow
-
-#define AC_INSTRUCTION_JMPA 0x0050
-#define AC_INSTRUCTION_JMPR 0x0051
-#define AC_INSTRUCTION_JMP 0x0052
-
-#define AC_INSTRUCTION_CALL 0x00053
-#define AC_INSTRUCTION_CALR 0x0054
-
-#define AC_INSTRUCTION_RET 0x0055
+enum ac_instruction
+{
+	ac_instruction_nop,
+	ac_instruction_add,
+	ac_instruction_sub,
+	ac_instruction_umul,
+	ac_instruction_udiv,
+	ac_instruction_smul,
+	ac_instruction_sdiv,
+	ac_instruction_neg,
+	ac_instruction_fadd,
+	ac_instruction_fsub,
+	ac_instruction_fmul,
+	ac_instruction_fdiv,
+	ac_instruction_fpow,
+	ac_instruction_fabs,
+	ac_instruction_ftrig,
+	ac_instruction_flog,
+	ac_instruction_itf,
+	ac_instruction_fti,
+	ac_instruction_not,
+	ac_instruction_or,
+	ac_instruction_and,
+	ac_instruction_xor,
+	ac_instruction_memb,
+	ac_instruction_memd,
+	ac_instruction_memq,
+	ac_instruction_ldb,
+	ac_instruction_ldd,
+	ac_instruction_ldq,
+	ac_instruction_mov,
+	ac_instruction_set,
+	ac_instruction_swap,
+	ac_instruction_push,
+	ac_instruction_pop,
+	ac_instruction_jmpa,
+	ac_instruction_jmpr,
+	ac_instruction_call,
+	ac_instruction_callr,
+	ac_instruction_ret,
+	ac_instruction_shr
+	ac_instruction_shl,
+	ac_instruction_ror,
+	ac_instruction_rol,
+	ac_instruction_setbit,
+	ac_instruction_cc,
+	ac_instruction_save,
+	ac_instruction_rest
+}
 
 #endif

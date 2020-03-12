@@ -8,34 +8,23 @@ typedef uint32_t reg_t;
 
 typedef union core_t {
 	struct {
-		reg_t res1; //r0
-		// result value 1 of operations
+		// general general purpose registers r0-r7
+		reg_t r0;
+		reg_t r1;
+		reg_t r2;
+		reg_t r3;
+		reg_t r4
+		reg_t r5;
+		reg_t r6;
+		reg_t r7;
 		
-		reg_t res2; //r1
-		// result value 2 of operations
+		reg_t sp; // the stack pointer, its r8
 		
-		reg_t src1; //r2
-		// source value 1 of operations
+		reg_t bp; // the base pointer, its r9
 		
-		reg_t src2; //r3
-		// source value 2 of operations
+		reg_t flags; // the flag register, its r10
 		
-		reg_t dr1; //data register no 1
-		reg_t dr2; //data register no 2
-		reg_t dr3; //data register no 3
-		reg_t dr4; //data register no 4
-		
-		reg_t sp; //
-		// stack pointer
-		
-		reg_t bp;
-		// base pointer
-		
-		reg_t flags;
-		//flag register
-		
-		reg_t ip;
-		// instruction pointer
+		reg_t ip; // the instruction pointer, r11
 	};
 	
 	reg_t regs[sizeof(reg_t) * 12];
