@@ -305,71 +305,77 @@ instructions:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register holds the the pointer to memory
 				byte val: a number between 0-256 which specify which register holds the value that would be loaded to memory
+				quad byte offset
 		modifies: 
 			memory:
-				[reg(dest)]
+				[reg(dest) + offset]
 		notes: 
 			MEMory load Byte
-			[reg(dest)] = (uint8_t)reg(val)
+			[reg(dest) + offset] = (uint8_t)reg(val)
 	memd:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register holds the the pointer to memory
 				byte val: a number between 0-256 which specify which register holds the value that would be loaded to memory
+				quad byte offset
 		modifies: 
 			memory: 
-				[reg(dest)]
+				[reg(dest) + offset]
 		notes: 
 			MEMory load Double byte 	
-			[reg(dest)] = (uint16_t)reg(val)
+			[reg(dest) + offset] = (uint16_t)reg(val)
 	memq:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register holds the the pointer to memory
 				byte val: a number between 0-256 which specify which register holds the value that would be loaded to memory
+				quad byte offset
 		modifies: 
 			memory: 
-				[reg(dest)]
+				[reg(dest) + offset]
 		notes: 
 			MEMory load Quad byte 	
-			[reg(dest)] = (uint32_t)reg(val)
+			[reg(dest) + offset] = (uint32_t)reg(val)
 	ldb:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
 				byte src: a number between 0-256 which specify which register holds the the pointer to memory
+				quad byte offset
 		modifies: 
 			registers:
 				reg(dest)
 		notes: 
 			load byte from memory
-			reg(dest) = (uint8_t)[reg(b)]
+			reg(dest) = (uint8_t)[reg(src) + offset]
 	ldd:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
 				byte src: a number between 0-256 which specify which register holds the the pointer to memory
+				quad byte offset
 		modifies: 
 			registers: 
 				reg(dest)
 		notes: 
 			load double byte from memory
-			reg(dest) = (uint16_t)[reg(b)]
+			reg(dest) = (uint16_t)[reg(src) + offset]
 	ldq:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
 				byte src: a number between 0-256 which specify which register holds the the pointer to memory
+				quad byte offset
 		modifies: 
 			registers: reg(dest)
 		notes: 
 			load quad byte from memory
-			reg(dest) = (uint32_t)[reg(b)]
+			reg(dest) = (uint32_t)[reg(src) + offset]
 	mov:
 		opcode:
 		parameters:
