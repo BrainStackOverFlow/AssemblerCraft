@@ -1,7 +1,7 @@
 #ifndef opcode_table_h
 #define opcode_table_h 1
 
-enum ac_register
+enum ac_reg_index
 {
 	ac_register_r0 = 0,
 	ac_register_r1,
@@ -23,56 +23,74 @@ enum ac_register
 	
 	ac_register_r255 = 255,
 	ac_register_nullreg = ac_register_r255
-}
+};
 
-enum ac_instruction
+enum ac_flag_index
 {
-	ac_instruction_nop,
-	ac_instruction_add,
-	ac_instruction_sub,
-	ac_instruction_umul,
-	ac_instruction_udiv,
-	ac_instruction_smul,
-	ac_instruction_sdiv,
-	ac_instruction_neg,
-	ac_instruction_fadd,
-	ac_instruction_fsub,
-	ac_instruction_fmul,
-	ac_instruction_fdiv,
-	ac_instruction_fpow,
-	ac_instruction_fabs,
-	ac_instruction_ftrig,
-	ac_instruction_flog,
-	ac_instruction_itf,
-	ac_instruction_fti,
-	ac_instruction_not,
-	ac_instruction_or,
-	ac_instruction_and,
-	ac_instruction_xor,
-	ac_instruction_memb,
-	ac_instruction_memd,
-	ac_instruction_memq,
-	ac_instruction_ldb,
-	ac_instruction_ldd,
-	ac_instruction_ldq,
-	ac_instruction_mov,
-	ac_instruction_set,
-	ac_instruction_swap,
-	ac_instruction_push,
-	ac_instruction_pop,
-	ac_instruction_jmpa,
-	ac_instruction_jmpr,
-	ac_instruction_call,
-	ac_instruction_callr,
-	ac_instruction_ret,
-	ac_instruction_shr
-	ac_instruction_shl,
-	ac_instruction_ror,
-	ac_instruction_rol,
-	ac_instruction_setbit,
-	ac_instruction_cc,
-	ac_instruction_save,
-	ac_instruction_rest
-}
+	ac_flag_cb,
+	ac_flag_zf,
+	ac_flag_sf,
+	ac_flag_cf,
+	ac_flag_of,
+	ac_flag_idbz,
+	ac_flag_fdbz,
+	ac_flag_ur,
+	ac_flag_maf
+};
+
+enum ac_instruction_opcode
+{
+	ac_instruction_nop_opcode,
+	ac_instruction_add_opcode,
+	ac_instruction_sub_opcode,
+	ac_instruction_umul_opcode,
+	ac_instruction_udiv_opcode,
+	ac_instruction_smul_opcode,
+	ac_instruction_sdiv_opcode,
+	ac_instruction_neg_opcode,
+	ac_instruction_fadd_opcode,
+	ac_instruction_fsub_opcode,
+	ac_instruction_fmul_opcode,
+	ac_instruction_fdiv_opcode,
+	ac_instruction_fpow_opcode,
+	ac_instruction_fabs_opcode,
+	ac_instruction_ftrig_opcode,
+	ac_instruction_flog_opcode,
+	ac_instruction_itf_opcode,
+	ac_instruction_fti_opcode,
+	ac_instruction_not_opcode,
+	ac_instruction_or_opcode,
+	ac_instruction_and_opcode,
+	ac_instruction_xor_opcode,
+	ac_instruction_memb_opcode,
+	ac_instruction_memd_opcode,
+	ac_instruction_memq_opcode,
+	ac_instruction_ldb_opcode,
+	ac_instruction_ldd_opcode,
+	ac_instruction_ldq_opcode,
+	ac_instruction_lea_opcode,
+	ac_instruction_mov_opcode,
+	ac_instruction_set_opcode,
+	ac_instruction_swapm_opcode,
+	ac_instruction_cmpswapm_opcode,
+	ac_instruction_push_opcode,
+	ac_instruction_pop_opcode,
+	ac_instruction_jmpa_opcode,
+	ac_instruction_jmpr_opcode,
+	ac_instruction_call_opcode,
+	ac_instruction_callr_opcode,
+	ac_instruction_ret_opcode,
+	ac_instruction_shr_opcode,
+	ac_instruction_shl_opcode,
+	ac_instruction_ror_opcode,
+	ac_instruction_rol_opcode,
+	ac_instruction_setbit_opcode,
+	ac_instruction_cc_opcode,
+	ac_instruction_save_opcode,
+	ac_instruction_rest_opcode,
+	ac_instruction_int_opcode,
+	ac_instruction_in_opcode,
+	ac_instruction_out_opcode
+};
 
 #endif

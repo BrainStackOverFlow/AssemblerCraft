@@ -27,12 +27,18 @@ processor core:
 				CF : Carry Flag
 				OF : Overflow Flag
 				
+				IDBZ : integer division by zero
+				FDBZ : floating point division by zero
+				UR : unexpected register
+				MAF: memory access fault
+				
 		ip:
 			the instruction pointer register, also known as 'r11'
 			contain the pointer for the next instruction that will be executed
 		
 		nullreg:
 			the null reigster, nullifies all output that goes into it
+			when readed its return 0
 	all registers are the size of quad byte
 
 instructions:
@@ -305,77 +311,87 @@ instructions:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register holds the the pointer to memory
 				byte val: a number between 0-256 which specify which register holds the value that would be loaded to memory
-				quad byte offset
 		modifies: 
 			memory:
-				[reg(dest) + offset]
+				[reg(dest)]
 		notes: 
 			MEMory load Byte
-			[reg(dest) + offset] = (uint8_t)reg(val)
+			[reg(dest)] = (uint8_t)reg(val)
 	memd:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register holds the the pointer to memory
 				byte val: a number between 0-256 which specify which register holds the value that would be loaded to memory
-				quad byte offset
 		modifies: 
 			memory: 
-				[reg(dest) + offset]
+				[reg(dest)]
 		notes: 
 			MEMory load Double byte 	
-			[reg(dest) + offset] = (uint16_t)reg(val)
+			[reg(dest)] = (uint16_t)reg(val)
 	memq:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register holds the the pointer to memory
 				byte val: a number between 0-256 which specify which register holds the value that would be loaded to memory
-				quad byte offset
 		modifies: 
 			memory: 
-				[reg(dest) + offset]
+				[reg(dest)]
 		notes: 
 			MEMory load Quad byte 	
-			[reg(dest) + offset] = (uint32_t)reg(val)
+			[reg(dest)] = (uint32_t)reg(val)
 	ldb:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
 				byte src: a number between 0-256 which specify which register holds the the pointer to memory
-				quad byte offset
 		modifies: 
 			registers:
 				reg(dest)
 		notes: 
 			load byte from memory
-			reg(dest) = (uint8_t)[reg(src) + offset]
+			reg(dest) = (uint8_t)[reg(src)]
 	ldd:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
 				byte src: a number between 0-256 which specify which register holds the the pointer to memory
-				quad byte offset
 		modifies: 
 			registers: 
 				reg(dest)
 		notes: 
 			load double byte from memory
-			reg(dest) = (uint16_t)[reg(src) + offset]
+			reg(dest) = (uint16_t)[reg(src)]
 	ldq:
 		opcode:
 		parameters:
 			in instruction memory: 
 				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
 				byte src: a number between 0-256 which specify which register holds the the pointer to memory
-				quad byte offset
 		modifies: 
-			registers: reg(dest)
+			registers: 
+				reg(dest)
 		notes: 
 			load quad byte from memory
-			reg(dest) = (uint32_t)[reg(src) + offset]
+			reg(dest) = (uint32_t)[reg(src)]
+	lea:
+		opcode:
+		paramaters:
+			in instructions memory:
+				byte dest: a number between 0-256 which specify which register will keep the result of the operation 
+				byte base: a number between 0-256 which specify which register holds the the pointer to memory
+				byte index: a number between 0-256 which specify a register
+				double byte factor: how much to mutltiply reg(index)
+				quad byte offset: how much to add to base
+		modifies:
+			registers:
+				reg(dest)
+			notes:
+				load effective adress
+				reg(dest) = reg(base) + reg(index) * factor + offset
 	mov:
 		opcode:
 		parameters:
@@ -400,17 +416,41 @@ instructions:
 		notes:
 			the instruction SETs register r with the constant operand val
 			reg(r) = val
-	swap:
+	swapm:
 		opcode:
 		parameters:
 			in instruction memory:
-				registers: byte a, b: numbers between 0-256 which specify which registers will swap values
+				registers: 
+					byte a: a number between 0-256 which specify which registers will point to the place in memory which will swap values
+					byte b: a number between 0-256 which specify which register will swap values
 		modifies: 
 			registers:
 				reg(a)
 				reg(b)
 		notes:
-			the instruction SWAP the values of registers a and b
+			the instruction swap the values of the place in memory which pointed by register a with teh value of register b
+			tmp = reg(b) 
+			reg(b) = [reg(a)]
+			[reg(a)] = tmp
+	cmpswapm:
+		parameters:
+			byte mem: specify a reg which point to the place in memory that will be swapped
+			byte src1: specify a reg to compare [reg(mem)] with 
+			byte src2: specify a reg to swap [reg(mem)] with
+		modifies:
+			registers:
+				reg(src2)
+			memory:
+				[reg(mem)]
+		notes:
+			if([reg(mem)] == reg(src1))
+			{
+				tmp = [reg(mem)]
+				[reg(mem)] = reg(src2)
+				reg(src2) = tmp
+			}
+			affects the zero flag:
+			zf = [reg(mem)] == reg(src1)
 	push:
 		parameters:
 			in instruction memory:
@@ -575,8 +615,11 @@ instructions:
 		notes:
 			does the oppsite of the `save` instruction and pop all the registers from the stack
 	int:
+		opcode:
+		paramaters:
+			byte val: specify which interrupt to executed
 		notes: 
-			interrupt
+			create an interrupt
 	in:
 		notes:
 			input a value from one of the processor ports
